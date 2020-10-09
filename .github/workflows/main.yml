@@ -30,6 +30,11 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCR_JSON_KEY }}
           logout: false
+      - 
+        name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          sudo: false
       -
         name: Build and push
         id: docker_build_spa
@@ -40,11 +45,6 @@ jobs:
           target: stage1
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-      - 
-        name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          sudo: false
       -
         name: Image digest
         run: echo ${{ steps.docker_build_spa.outputs.digest }}
