@@ -35,7 +35,7 @@ jobs:
         id: docker_build_spa
         uses: docker/build-push-action@v2
         with:
-          push: false
+          push: true
           tags: yslow1/debug1:latest
           target: stage1
           cache-from: type=local,src=/tmp/.buildx-cache
