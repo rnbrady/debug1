@@ -18,6 +18,6 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCR_JSON_KEY }}
           repository: yslow1/debug1
-          tags: latest,prod1
+          tags: latest,prod1,test1
           tag_with_ref: true
           tag_with_sha: true
