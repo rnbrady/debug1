@@ -44,7 +44,7 @@ jobs:
         name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         with:
-          sudo: false
+          sudo: true
       -
         name: Image digest
         run: echo ${{ steps.docker_build_spa.outputs.digest }}
