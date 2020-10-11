@@ -1,0 +1,8 @@
+{
+  "name": "debug1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:rnbrady/debug1.git",
+  "author": "Richard Brady <rnbrady@gmail.com>",
+  "license": "MIT"
+}
