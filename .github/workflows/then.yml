@@ -2,7 +2,7 @@ name: Test
 
 on:
   release:
-    types: [published]
+    types: [published, updated]
 
 env:
   PROJECT_ID: yslow1
@@ -23,13 +23,13 @@ jobs:
       - name: get version
         id: getv1
         run: |
-          echo image_tag=sha-$(git rev-parse --short HEAD) >> $GITHUB_ENV
+          echo image_tag=sha-$(GITHUB_SHA:0:7) >> $GITHUB_ENV
 
       - name: Setup gcloud command
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
           service_account_key: ${{ secrets.GCP_JSON_KEY }}
-          project_id: ${{ env.GKE_PROJECT }}
+          project_id: ${{ env.PROJECT_ID }}
   
       # Setup kubectl with credentials to access the cluster
       - name: Setup kubectl
