@@ -14,10 +14,9 @@ jobs:
       - name: get version
         id: getv
         run: |
-          echo GITHUB_SHA $GITHUB_SHA
-          echo GITHUB_REF $GITHUB_REF
-          npm run env | grep npm_package_version >> $GITHUB_ENV
-          echo GITHUB_SHA_SHORT=`git rev-parse --short HEAD` >> $GITHUB_ENV
+          npm_package_version=$(npm run env | grep npm_package_version)
+          git_short_hash=$(git rev-parse --short HEAD)
+          echo code_version=$npm_package_version+$git_short_hash >> $GITHUB_ENV
 
       - name: test vars
         run: |
@@ -28,11 +27,11 @@ jobs:
         uses: docker/build-push-action@v1.1.0
         with:
           target: frontend
-          build_args: code_version=${{ env.npm_package_version }}-${{ env.GITHUB_SHA_SHORT }}
+          build_args: code_version
           registry: eu.gcr.io
           username: _json_key
           password: ${{ secrets.GCR_JSON_KEY }}
           repository: debug1/spa-server
-          tags: staging,v${{ env.npm_package_version }}-${{ env.GITHUB_SHA_SHORT }}
+          tags: staging,v${{ env.code_version }}
           tag_with_ref: true
           tag_with_sha: true
