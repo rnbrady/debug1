@@ -16,7 +16,7 @@ jobs:
         run: |
           pkg_version=$(npm run env | grep npm_package_version | cut -d= -f2)
           git_short_hash=$(git rev-parse --short HEAD)
-          echo code_version=$npm_package_version+$git_short_hash >> $GITHUB_ENV
+          echo code_version=$pkg_version+$git_short_hash >> $GITHUB_ENV
 
       - name: test vars
         run: |
