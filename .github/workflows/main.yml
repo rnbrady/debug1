@@ -32,6 +32,6 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCR_JSON_KEY }}
           repository: debug1/spa-server
-          tags: staging,v${{ env.code_version }}
+          tags: staging
           tag_with_ref: true
           tag_with_sha: true
