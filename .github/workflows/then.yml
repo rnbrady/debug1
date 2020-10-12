@@ -20,6 +20,11 @@ jobs:
           echo GITHUB_SHA $GITHUB_SHA
           echo GITHUB_REF $GITHUB_REF
 
+      - name: get version
+        id: getv
+        run: |
+          echo image_tag=sha-$(git rev-parse --short HEAD) >> $GITHUB_ENV
+
       - name: Setup gcloud command
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
@@ -34,8 +39,13 @@ jobs:
       # Tag the release as production in the container registry
       - name: Tag images
         run: |-
-          gcloud container images add-tag eu.gcr.io/yslow1/spa-server:sha-$GITHUB_SHA eu.gcr.io/yslow1/spa-server:production
-          gcloud container images add-tag eu.gcr.io/yslow1/api-server:sha-$GITHUB_SHA eu.gcr.io/yslow1/api-server:production
+          gcloud container images add-tag \
+          eu.gcr.io/yslow1/spa-server:${{ env.image_tag}} \
+          eu.gcr.io/yslow1/spa-server:production
+          
+          gcloud container images add-tag \
+          eu.gcr.io/yslow1/api-server:${{ env.image_tag}} \
+          eu.gcr.io/yslow1/api-server:production
   
       - name: Deploy to Production
         run: |-
