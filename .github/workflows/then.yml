@@ -21,7 +21,7 @@ jobs:
           echo GITHUB_REF $GITHUB_REF
 
       - name: get version
-        id: getv
+        id: getv1
         run: |
           echo image_tag=sha-$(git rev-parse --short HEAD) >> $GITHUB_ENV
 
