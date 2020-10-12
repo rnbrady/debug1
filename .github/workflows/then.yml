@@ -1,12 +1,12 @@
-name: Test
+name: Test deploy
 
 on:
   release:
-    types: [published, updated]
+    types: [published]
 
 env:
   PROJECT_ID: yslow1
-  GKE_CLUSTER: debug1
+  GKE_CLUSTER: cluster5
   GKE_ZONE: europe-west2-c    
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
       # Setup kubectl with credentials to access the cluster
       - name: Setup kubectl
         run: |-
-          gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
+          gcloud container clusters get-credentials "$GKE_CLUSTER" 
   
       # Tag the release as production in the container registry
       - name: Tag images
